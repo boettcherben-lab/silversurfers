@@ -10,6 +10,7 @@ from pathlib import Path
 from sqlalchemy import select
 
 from app.database import SessionLocal
+from app.local_time import today_in_berlin
 from app.models import Match, Team, TeamSyncStatus
 from app.services.eligibility import calculate_team_eligibilities
 
@@ -49,7 +50,7 @@ def build_dashboard_payload(
     as_of: date | None = None,
 ) -> dict[str, object]:
     """Build the public static representation consumed by the React dashboard."""
-    calculation_date = as_of or date.today()
+    calculation_date = as_of or today_in_berlin()
     with SessionLocal() as session:
         higher_team, eligibilities = calculate_team_eligibilities(
             session,

@@ -11,6 +11,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
+from app.local_time import now_in_berlin
 from app.models import Team, TeamSyncStatus
 from app.scrapers.fussballde_client import FussballDeClient, FussballDeFetchError
 from app.services.fussballde_matchplan_sync import sync_team_matchplan
@@ -71,7 +72,7 @@ def run_configured_matchplan_sync(settings: MatchplanSyncSettings) -> None:
                     record_successful_matchplan_sync(
                         session,
                         team_fussballde_id=team_fussballde_id,
-                        synced_at=datetime.now(),
+                        synced_at=now_in_berlin(),
                     )
                     session.commit()
                     logger.info(
