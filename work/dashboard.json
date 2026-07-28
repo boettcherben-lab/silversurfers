@@ -1,0 +1,263 @@
+{
+  "next_higher_match": {
+    "id": 1,
+    "fussballde_id": "031IIOAP04000000VS5489BTVSRD0UH9",
+    "played_on": "2026-08-07",
+    "kickoff_time": "19:00:00",
+    "competition": "Kreispokal",
+    "home_team": "SSV Thönse",
+    "away_team": "FC Burgwedel",
+    "report_url": "https://www.fussball.de/spiel/ssv-thoense-fc-burgwedel/-/spiel/031IIOAP04000000VS5489BTVSRD0UH9"
+  },
+  "next_lower_match": {
+    "id": 16,
+    "fussballde_id": "031GMUKQF8000000VS5489BUVSJ4CRAP",
+    "played_on": "2026-08-14",
+    "kickoff_time": "18:30:00",
+    "competition": "2.Kreisklasse",
+    "home_team": "FC Burgwedel II",
+    "away_team": "SG Adler/​TSV 03",
+    "report_url": "https://www.fussball.de/spiel/fc-burgwedel-ii-sg-adler-tsv-03/-/spiel/031GMUKQF8000000VS5489BUVSJ4CRAP"
+  },
+  "eligibility": {
+    "team_name": "FC Burgwedel Ü40 I",
+    "as_of": "2026-07-29",
+    "players": [
+      {
+        "player_id": 26,
+        "player_name": "Alexander Franke",
+        "jersey_number": 9,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 12,
+        "player_name": "Aydin Kinno",
+        "jersey_number": 21,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 22,
+        "player_name": "Borris Johannes Maria van Thiel",
+        "jersey_number": 2,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 4,
+        "player_name": "Christian Goldenstein",
+        "jersey_number": 11,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 21,
+        "player_name": "Christian Göhler",
+        "jersey_number": 28,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 8,
+        "player_name": "Christian Hampe",
+        "jersey_number": 6,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 17,
+        "player_name": "Christian Pawellek",
+        "jersey_number": 14,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 24,
+        "player_name": "Christian Wode",
+        "jersey_number": 6,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 20,
+        "player_name": "Ben Boettcher",
+        "jersey_number": 22,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 14,
+        "player_name": "Frederik Baars",
+        "jersey_number": 3,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 25,
+        "player_name": "Jan-Hendrik Hartmann",
+        "jersey_number": 15,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 23,
+        "player_name": "Jörg Müller",
+        "jersey_number": 13,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 18,
+        "player_name": "Kay Büchsenschütz",
+        "jersey_number": 6,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 19,
+        "player_name": "Lasse Drews",
+        "jersey_number": 21,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 1,
+        "player_name": "Maik Fischer",
+        "jersey_number": 1,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 9,
+        "player_name": "Mark-O. Thomassek",
+        "jersey_number": 9,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 28,
+        "player_name": "Martin Paulini",
+        "jersey_number": 17,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 2,
+        "player_name": "Matthias Huelsewig",
+        "jersey_number": 5,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 13,
+        "player_name": "Metin Esen",
+        "jersey_number": 57,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 15,
+        "player_name": "Michael Löhn",
+        "jersey_number": 19,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 3,
+        "player_name": "Nils Rosenmeyer",
+        "jersey_number": 7,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 7,
+        "player_name": "Patrick Heldt",
+        "jersey_number": 78,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 5,
+        "player_name": "Robert Echelmeyer",
+        "jersey_number": 24,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 16,
+        "player_name": "Sebastian Meyer",
+        "jersey_number": 13,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 10,
+        "player_name": "Thomas Martens",
+        "jersey_number": 10,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 11,
+        "player_name": "Tim Bohneberg",
+        "jersey_number": 18,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 6,
+        "player_name": "Toufik Achour",
+        "jersey_number": 30,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 29,
+        "player_name": "Yilmaz Cengil",
+        "jersey_number": 4,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      },
+      {
+        "player_id": 27,
+        "player_name": "Yusuf Cengil",
+        "jersey_number": 30,
+        "status": "eligible",
+        "matches_to_skip": 0,
+        "eligible_on": null
+      }
+    ]
+  },
+  "sync_status": {
+    "last_successful_sync_at": null
+  }
+}

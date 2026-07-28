@@ -1,0 +1,28 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+*.db
+!data/festspielmonitor.db
+
+# Node / Vite
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+frontend/public/dashboard.json
+*.tsbuildinfo
+
+# Environment and local tooling
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# Operating systems
+.DS_Store
+Thumbs.db

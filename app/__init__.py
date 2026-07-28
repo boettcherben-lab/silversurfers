@@ -1,0 +1,1 @@
+"""Festspielmonitor backend package."""
