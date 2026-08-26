@@ -45,6 +45,14 @@ class FussballDeClient:
         path = f"/ajax.match.lineup/-/mode/PAGE/spiel/{match_id}"
         return self._fetch_html(path, f"lineup for match {match_id}")
 
+    def fetch_match_course_html(self, match_id: str) -> str:
+        """Return the public match course, including substitutions, for one match."""
+        if _SOURCE_ID_PATTERN.fullmatch(match_id) is None:
+            raise ValueError("match_id must consist only of uppercase letters and digits")
+
+        path = f"/ajax.match.course/-/mode/PAGE/spiel/{match_id}"
+        return self._fetch_html(path, f"match course for match {match_id}")
+
     def fetch_team_matchplan_html(self, team_id: str) -> str:
         """Return the public match-plan fragment for one explicitly selected team."""
         if _SOURCE_ID_PATTERN.fullmatch(team_id) is None:

@@ -1,14 +1,14 @@
-"""Bounded import of newly published lineups from recent higher-team fixtures."""
+"""Bounded reconciliation of recent higher-team lineups from FUSSBALL.DE."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Protocol
 
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models import Appearance, Match
+from app.models import Match
 from app.scrapers.fussballde_matchplan import parse_team_matchplan_html
 from app.services.fussballde_import import MatchImport
 from app.services.fussballde_matchplan_import import (
@@ -44,10 +44,11 @@ def sync_recent_higher_team_lineups(
     *,
     team_fussballde_id: str,
 ) -> RecentLineupSyncSummary:
-    """Import available lineups from the source's bounded recent-fixtures list.
+    """Reconcile available lineups from the source's bounded recent-fixtures list.
 
     Only competitive fixtures of the explicitly configured higher team are considered. A match
-    is marked finished only after the source exposes a lineup for the monitored team.
+    is marked finished only after the source exposes a lineup for the monitored team. Existing
+    fixtures are deliberately rechecked, because substitutions can be added or corrected later.
     """
     recent_matches = parse_team_matchplan_html(
         source.fetch_previous_games_html(team_fussballde_id)
@@ -74,12 +75,7 @@ def sync_recent_higher_team_lineups(
             select(Match).where(Match.fussballde_id == fixture.fussballde_id)
         )
         if existing_match is not None and existing_match.finished:
-            appearance_count = session.scalar(
-                select(func.count(Appearance.id)).where(Appearance.match_id == existing_match.id)
-            )
-            if appearance_count > 0:
-                already_imported += 1
-                continue
+            already_imported += 1
 
         try:
             sync_match(

@@ -11,8 +11,14 @@ from app.services.fussballde_recent_lineup_sync import sync_recent_higher_team_l
 
 
 class FakeRecentLineupSource:
-    def __init__(self, lineup_html: str, profile_html_by_url: dict[str, str]) -> None:
+    def __init__(
+        self,
+        lineup_html: str,
+        match_course_html: str,
+        profile_html_by_url: dict[str, str],
+    ) -> None:
         self.lineup_html = lineup_html
+        self.match_course_html = match_course_html
         self.profile_html_by_url = profile_html_by_url
         self.profile_requests = 0
 
@@ -31,6 +37,10 @@ class FakeRecentLineupSource:
         assert match_id == "MATCH1"
         return self.lineup_html
 
+    def fetch_match_course_html(self, match_id: str) -> str:
+        assert match_id == "MATCH1"
+        return self.match_course_html
+
     def fetch_player_profile_html(self, profile_url: str) -> str:
         self.profile_requests += 1
         return self.profile_html_by_url[profile_url]
@@ -42,6 +52,7 @@ def test_recent_lineup_sync_imports_new_completed_match_once(tmp_path) -> None:
     fixture_directory = Path(__file__).parent / "fixtures"
     source = FakeRecentLineupSource(
         (fixture_directory / "fussballde_lineup.html").read_text(encoding="utf-8"),
+        (fixture_directory / "fussballde_match_course.html").read_text(encoding="utf-8"),
         {
             "https://www.fussball.de/spielerprofil/-/player-id/HOME_CAPTAIN": (
                 "<title>Maik Fischer Basisprofil | FUSSBALL.DE</title>"
@@ -77,6 +88,6 @@ def test_recent_lineup_sync_imports_new_completed_match_once(tmp_path) -> None:
     assert first_summary.imported == 1
     assert first_summary.ignored == 1
     assert second_summary.already_imported == 1
-    assert source.profile_requests == 3
+    assert source.profile_requests == 6
     assert match is not None and match.finished is True
     assert len(appearances) == 3

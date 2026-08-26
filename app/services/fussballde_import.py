@@ -83,6 +83,15 @@ def import_match(
 
     session.flush()
 
+    imported_player_ids = {
+        entry.fussballde_id
+        for entry in lineup_entries
+        if entry.side == match_import.monitored_team_side
+    }
+    for appearance in list(match.appearances):
+        if appearance.player.fussballde_id not in imported_player_ids:
+            session.delete(appearance)
+
     for entry in lineup_entries:
         if entry.side != match_import.monitored_team_side:
             continue

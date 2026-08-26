@@ -20,6 +20,12 @@ class FakeFussballDeSource:
         assert match_id == "MATCH1"
         return self.lineup_html
 
+    def fetch_match_course_html(self, match_id: str) -> str:
+        assert match_id == "MATCH1"
+        return (Path(__file__).parent / "fixtures" / "fussballde_match_course.html").read_text(
+            encoding="utf-8"
+        )
+
     def fetch_player_profile_html(self, profile_url: str) -> str:
         return self.profile_html_by_url[profile_url]
 

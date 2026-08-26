@@ -22,6 +22,20 @@ def test_fetch_lineup_html_requests_the_public_lineup_endpoint() -> None:
     assert client.fetch_lineup_html("MATCH123") == "<section>lineup</section>"
 
 
+def test_fetch_match_course_html_requests_the_public_match_course_endpoint() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/ajax.match.course/-/mode/PAGE/spiel/MATCH123"
+        return httpx.Response(200, text="<section>match course</section>")
+
+    http_client = httpx.Client(
+        base_url="https://www.fussball.de",
+        transport=httpx.MockTransport(handler),
+    )
+    client = FussballDeClient(http_client)
+
+    assert client.fetch_match_course_html("MATCH123") == "<section>match course</section>"
+
+
 def test_fetch_lineup_html_raises_a_domain_error_for_http_failures() -> None:
     http_client = httpx.Client(
         base_url="https://www.fussball.de",

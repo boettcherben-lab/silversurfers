@@ -11,14 +11,24 @@ from app.services.fussballde_sync import sync_match
 
 
 class FakeFussballDeSource:
-    def __init__(self, lineup_html: str, profile_html_by_url: dict[str, str]) -> None:
+    def __init__(
+        self,
+        lineup_html: str,
+        match_course_html: str,
+        profile_html_by_url: dict[str, str],
+    ) -> None:
         self.lineup_html = lineup_html
+        self.match_course_html = match_course_html
         self.profile_html_by_url = profile_html_by_url
         self.fetched_profile_urls: list[str] = []
 
     def fetch_lineup_html(self, match_id: str) -> str:
         assert match_id == "match-1"
         return self.lineup_html
+
+    def fetch_match_course_html(self, match_id: str) -> str:
+        assert match_id == "match-1"
+        return self.match_course_html
 
     def fetch_player_profile_html(self, profile_url: str) -> str:
         self.fetched_profile_urls.append(profile_url)
@@ -30,6 +40,9 @@ def test_sync_match_imports_only_monitored_team_with_resolved_names(tmp_path) ->
     Base.metadata.create_all(bind=engine)
     fixture_directory = Path(__file__).parent / "fixtures"
     lineup_html = (fixture_directory / "fussballde_lineup.html").read_text(encoding="utf-8")
+    match_course_html = (fixture_directory / "fussballde_match_course.html").read_text(
+        encoding="utf-8"
+    )
 
     profile_html_by_url = {
         "https://www.fussball.de/spielerprofil/-/player-id/HOME_CAPTAIN": (
@@ -42,7 +55,7 @@ def test_sync_match_imports_only_monitored_team_with_resolved_names(tmp_path) ->
             "<title>Thomas Martens Basisprofil | FUSSBALL.DE</title>"
         ),
     }
-    source = FakeFussballDeSource(lineup_html, profile_html_by_url)
+    source = FakeFussballDeSource(lineup_html, match_course_html, profile_html_by_url)
 
     with Session(engine) as session:
         session.add(Team(name="FC Burgwedel Ü40 I", fussballde_id="higher-team"))
@@ -69,3 +82,68 @@ def test_sync_match_imports_only_monitored_team_with_resolved_names(tmp_path) ->
         assert session.scalars(select(Player).order_by(Player.name)).all()
         assert len(session.scalars(select(Appearance)).all()) == 3
         assert source.fetched_profile_urls == list(profile_html_by_url)
+
+
+def test_sync_match_removes_bench_players_when_they_were_not_substituted_on(tmp_path) -> None:
+    engine = create_sqlite_engine(f"sqlite:///{tmp_path / 'reconcile-sync.db'}")
+    Base.metadata.create_all(bind=engine)
+    fixture_directory = Path(__file__).parent / "fixtures"
+    lineup_html = (fixture_directory / "fussballde_lineup.html").read_text(encoding="utf-8")
+    match_course_html = (fixture_directory / "fussballde_match_course.html").read_text(
+        encoding="utf-8"
+    )
+    profile_html_by_url = {
+        "https://www.fussball.de/spielerprofil/-/player-id/HOME_CAPTAIN": (
+            "<title>Maik Fischer Basisprofil | FUSSBALL.DE</title>"
+        ),
+        "https://www.fussball.de/spielerprofil/-/player-id/HOME_STARTER": (
+            "<title>Christian Goldenstein Basisprofil | FUSSBALL.DE</title>"
+        ),
+        "https://www.fussball.de/spielerprofil/-/player-id/HOME_SUB": (
+            "<title>Thomas Martens Basisprofil | FUSSBALL.DE</title>"
+        ),
+    }
+    source = FakeFussballDeSource(lineup_html, match_course_html, profile_html_by_url)
+
+    with Session(engine) as session:
+        session.add(Team(name="FC Burgwedel Ü40 I", fussballde_id="higher-team"))
+        session.commit()
+
+        sync_match(
+            session,
+            source,
+            MatchImport(
+                fussballde_id="match-1",
+                team_fussballde_id="higher-team",
+                monitored_team_side="home",
+                played_on=date(2026, 8, 7),
+                competition="Kreispokal",
+                home_team="FC Burgwedel",
+                away_team="SSV Thönse",
+                finished=True,
+                is_competitive=True,
+            ),
+        )
+        session.commit()
+
+        assert len(session.scalars(select(Appearance)).all()) == 3
+
+        source.match_course_html = "<div class='match-course'></div>"
+        sync_match(
+            session,
+            source,
+            MatchImport(
+                fussballde_id="match-1",
+                team_fussballde_id="higher-team",
+                monitored_team_side="home",
+                played_on=date(2026, 8, 7),
+                competition="Kreispokal",
+                home_team="FC Burgwedel",
+                away_team="SSV Thönse",
+                finished=True,
+                is_competitive=True,
+            ),
+        )
+        session.commit()
+
+        assert len(session.scalars(select(Appearance)).all()) == 2
